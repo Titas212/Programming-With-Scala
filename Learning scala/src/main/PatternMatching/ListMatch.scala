@@ -9,7 +9,6 @@ case class ::[+A](head: A, tail: ListMatch[A]) extends ListMatch[A]
 
 object ListMatch
 {
-
   def matchInts(ints: ListMatch[Int]): Int = ints match
   {
     case ::(x, ::(2, ::(4, _))) => x
