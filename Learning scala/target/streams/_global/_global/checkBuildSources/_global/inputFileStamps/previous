@@ -1,1 +1,1 @@
-["sbt.Task[scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]",{"hashes":[["C:\\Users\\titas\\Desktop\\Programming-With-Scala-main\\Programming-With-Scala-main\\Learning scala\\build.sbt","fcc45b8fcd6a0e827e39776ff394b24a9391f746"]],"lastModifiedTimes":[]}]
+["sbt.Task[scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]",{"hashes":[["/home/titas01/git_environment/Programming-With-Scala/Learning scala/build.sbt","fcc45b8fcd6a0e827e39776ff394b24a9391f746"]],"lastModifiedTimes":[]}]

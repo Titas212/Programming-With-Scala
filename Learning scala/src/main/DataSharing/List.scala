@@ -1,5 +1,3 @@
-import scala.::
-
 object List
 {
 
@@ -123,14 +121,115 @@ object List
   //3.14 -----------------------------------------
   def appendViaLeft[A](as: List[A], ap: List[A]): List[A] =
     {
-      ::(as, ap)
+      foldLeft(as, ap)((x, y)=> ::(y,x))
     }
 
-  def appendViaRight[A](as: List[A], ap: A): List[A] =
+  def appendViaRight[A](as: List[A], ap: List[A]): List[A] =
     {
-      foldRight()
+      foldRight(as, ap)((x, y) => ::(x, y))
     }
   //-----------------------------------------------
+
+  //3.15-------------------------------------------
+  def concLists[A](li: List[List[A]]): List[A] =
+    {
+      foldRight(li, Nil:List[A])(appendViaRight)
+    }
+  //-----------------------------------------------
+
+  //3.16-------------------------------------------
+  def add1(li: List[Int]): List[Int] =
+  li match
+  {
+    case Nil => Nil
+    case ::(h, t) => ::(h+1, add1(t))
+  }
+  //-----------------------------------------------
+
+  //3.17-------------------------------------------
+  def dToS(li: List[Double]): List[String] =
+    li match
+    {
+      case Nil => Nil
+      case ::(h, t) => ::(h.toString, dToS(t))
+    }
+  //-----------------------------------------------
+
+  //3.18------------------------------------------
+  def map[A, B](as: List[A])(f: A=>B): List[B] =
+  as match
+  {
+    case Nil => Nil
+    case ::(h, t) => ::(f(h), map(t)(f))
+  }
+
+  def add1Generalized(li: List[Int]): List[Int] =
+    {
+      map(li)(x => x+1)
+    }
+
+  def dToSGeneralized(li: List[Double]): List[String] =
+    {
+      map(li)(x => x.toString)
+    }
+  //----------------------------------------------
+
+  //3.19------------------------------------------
+  def filter[A](as: List[A])(f:A=> Boolean): List[A] =
+  as match
+    {
+      case Nil => as
+      case ::(h, t) if(!f(h)) => filter(t)(f)
+      case ::(h, t) => ::(h, filter(t)(f))
+    }
+  //----------------------------------------------
+
+  //3.20------------------------------------------
+  def flatMap[A, B](as: List[A])(f:A=>List[B]): List[B] =
+  {
+    concLists(map(as)(f))
+  }
+  //----------------------------------------------
+
+  //3.21------------------------------------------
+  def filterViaFlatMap[A](li: List[A])(f:A=> Boolean): List[A] =
+    {
+      flatMap(li)(x => if(f(x)) List(x) else Nil)
+    }
+  //----------------------------------------------
+
+  //3.22------------------------------------------
+  def addListsAndValues(li: List[Int], as: List[Int]): List[Int] =
+  (li, as) match
+  {
+    case(Nil, _) => Nil
+    case(_, Nil) => Nil
+    case (::(h, t), ::(h1,t1)) => ::(h+h1, addListsAndValues(t, t1))
+  }
+  //----------------------------------------------
+
+  //3.23------------------------------------------
+  def zipWith[A,B,C](li: List[A], as: List[B])(f:(A, B) => C): List[C] =
+    (li, as) match
+    {
+      case(Nil, _) => Nil
+      case(_, Nil) => Nil
+      case (::(h, t), ::(h1,t1)) => ::(f(h, h1), zipWith(t, t1)(f))
+    }
+  //----------------------------------------------
+
+  //3.24------------------------------------------
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean =
+    (sup, sub) match
+    {
+      case (_, Nil) => true
+      case (Nil, _) => false
+      case (Nil, Nil) => true
+      case (::(h, t), ::(h1, t1)) => if(h==h1)hasSubsequence(t, t1) else hasSubsequence(t, sub)
+    }
+
+
+  //----------------------------------------------
   def apply[A](as: A*): List[A] =
   {
     if(as.isEmpty) Nil
@@ -139,6 +238,6 @@ object List
 
 def main(args: Array[String]): Unit =
   {
-    println(appendViaLeft(List(1,2,3), 3))
+    println(hasSubsequence(List(1,2,3,4,5,6), List(7,8,9)))
   }
 }
