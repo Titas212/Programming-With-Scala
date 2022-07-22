@@ -55,8 +55,18 @@ object MyEither
     try Right(a)
     catch {case e: Exception => Left(e)}
 
+  def nonStrict(a: => Int, b: => Int )(f: Boolean): Int =
+    {
+      if(f)
+      {
+        lazy val x = a
+        x +x
+      }
+      else b
+    }
+
   def main(args: Array[String]): Unit =
     {
-
+      println(nonStrict(5+1, 7)(true))
     }
 }

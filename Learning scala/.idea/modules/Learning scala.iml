@@ -8,6 +8,8 @@
       <sourceFolder url="file://$MODULE_DIR$/../../src/test/scala" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/scala" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../src/main/DataSharing" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/main/Postfix" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/main/StrictnessLaziness" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../../target" />
     </content>
     <orderEntry type="inheritedJdk" />

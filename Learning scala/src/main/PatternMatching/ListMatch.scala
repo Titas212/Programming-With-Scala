@@ -3,12 +3,13 @@ import sun.reflect.generics.tree.IntSignature
 import scala.collection.View.Empty
 import scala.collection.immutable.{List, _}
 
-trait ListMatch[+A]
-case object  Nil extends ListMatch[Nothing]
-case class ::[+A](head: A, tail: ListMatch[A]) extends ListMatch[A]
-
 object ListMatch
 {
+
+  trait ListMatch[+A]
+  case object  Nil extends ListMatch[Nothing]
+  case class ::[+A](head: A, tail: ListMatch[A]) extends ListMatch[A]
+
   def matchInts(ints: ListMatch[Int]): Int = ints match
   {
     case ::(x, ::(2, ::(4, _))) => x
