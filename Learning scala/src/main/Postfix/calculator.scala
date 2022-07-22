@@ -60,25 +60,31 @@ object calculator {
       li match
       {
         case Right(x) =>
-          while(i<x.length)
-            {
-              x(i) match
-              {
-                case number(x) =>
-                stack.push(x)
-                  i = i+1
-                case _ =>
-                stack.push(operate(stack.pop(), stack.pop(), x(i)))
-                  i = i+1
-              }
-            }
-        case Left(x) => return Left(x)
+         Right(manageStack(x, stack).pop())
+        case Left(x) => Left(x)
       }
-      Right(stack.pop())
+    }
+
+  def manageStack(li: List[Token], stack: util.Stack[Double]): util.Stack[Double] =
+    {
+      var i = 0
+      while(i<li.length)
+      {
+        li(i) match
+        {
+          case number(x) =>
+            stack.push(x)
+            i = i+1
+          case _ =>
+            stack.push(operate(stack.pop(), stack.pop(), li(i)))
+            i = i+1
+        }
+      }
+      stack
     }
 
   def main(args: Array[String]) =
   {
-    println(execute("3 4 7 * 2 / +"))
+    println(execute("3 4 7 * 2 /"))
   }
 }
